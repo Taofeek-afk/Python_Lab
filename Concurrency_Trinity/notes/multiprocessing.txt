@@ -1,0 +1,5 @@
+What Is a Zombie Process?
+A zombie process (state Z / <defunct>) is a child process that has finished executing and exited, but its exit status hasn't been collected (reaped) yet by its parent process.
+
+the Queue's Python-level machinery lives in user-space process memory, while its underlying communication channel and synchronization resources are managed by the operating system. It is not a single object residing entirely in kernel memory or shared physical memory.
+

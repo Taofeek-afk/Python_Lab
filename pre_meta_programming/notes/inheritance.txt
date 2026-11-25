@@ -1,0 +1,26 @@
+A common misconception is that super() refers strictly to "the immediate parent class."
+Mechanical Reality: super() does not point to a class; it points to the next class in the MRO chain.
+
+This distinction is crucial in multiple inheritance and cooperative multi-level inheritance (often used in mixin patterns), ensuring that every class in a diamond-shaped hierarchy is initialized exactly once.
+
+
+
+Concrete Method: A regular, fully implemented method that contains actual code/logic (as opposed to an abstract method which only defines a signature and uses pass or ...). DataStore.disconnect() is a concrete method.
+
+Concrete Class: A fully realized class that has no unfulfilled abstract methods. Because all contracts are met, Python allows you to instantiate a concrete class directly (e.g., db = PostgresStore()).
+
+
+
+
+
+Inheritance Complications: If a slotted class inherits from a non-slotted class, the parent's __dict__ is preserved, negating the memory savings unless the parent is also slotted.
+
+
+A mixin is a regular class designed to share methods and instance behavior across different object hierarchies via normal inheritance.
+
+
+object is the base ancestor of everything.
+
+Every single class you write (class MyClass: pass) implicitly inherits from object.
+
+It defines the foundational behaviors that all objects share (like __repr__, __eq__, etc.).

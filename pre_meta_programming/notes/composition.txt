@@ -1,0 +1,11 @@
+Composition over Inheritance.
+
+The Composition Alternative ("Has-A" vs. "Is-A")
+Instead of asking "What is this object?" (inheritance), composition asks "What components does this object have?" (composition).
+
+By injecting smaller, focused objects into a host class, you can swap behaviors dynamically at runtime without altering class hierarchies.
+
+
+Dictionaries in Python come with a heavy memory overhead because they are implemented as hash tables that pre-allocate space to ensure fast lookups. If you are instantiating millions of objects (like rows in a database parser, network packets, or game entities), that __dict__ overhead can consume gigabytes of RAM.
+
+

@@ -1,0 +1,235 @@
+# # Week 2 Capstone – Automation Toolkit
+
+# ## Project: Smart Backup Manager
+
+# This is where everything you've learned comes together.
+
+# You are no longer learning isolated modules. You are building a **real automation utility**.
+
+# Scenario
+
+# You are working as a junior automation engineer.
+
+# Your manager says:
+
+# > "Build a backup tool that can back up a folder, keep track of previous runs, generate reports, and remember its settings."
+
+# Your tool should:
+
+# 1. Read backup settings.
+# 2. Find files.
+# 3. Copy files.
+# 4. Save backup information.
+# 5. Generate reports.
+# 6. Resume from previous state.
+
+# # Project Structure
+
+# Create:
+
+# ```text
+# backup_manager/
+
+# │
+# ├── backup.py
+# ├── config.ini
+# ├── backup_state.pkl
+# ├── backup_metadata.json
+# └── backup_report.csv
+
+# # Part 1 — Configuration
+
+# Create:
+
+# config.ini
+
+# ```ini
+# [Backup]
+# source=documents
+# destination=backup
+
+# [Settings]
+# create_report=True
+# save_state=True
+# ```
+
+
+# Part 2 — Create Backup Folder
+
+# Part 3 — Discover Files
+
+# Part 4 — Copy Files
+
+# Part 5 — Save Backup State
+
+# pickle
+
+# backup_state = {
+#     "files_processed": 20,
+#     "last_backup": "2026-07-29",
+#     "successful": True
+# }
+
+# # Part 6 — Create Metadata JSON
+
+# JSON is for portable information.
+
+# Example:
+
+# ```json
+# {
+#     "backup_name": "daily_backup",
+#     "files": 20,
+#     "location": "backup"
+# }
+
+# # Part 7 — Generate CSV Report
+
+# CSV is for business-style reporting.
+
+# Example:
+
+# ```csv
+# Filename,Size
+# report.pdf,20480
+# photo.jpg,10240
+
+
+# Use:
+
+# ```python
+# csv.DictWriter()
+# ```
+
+# because your data is naturally dictionary-based:
+
+# {
+#     "Filename": "report.pdf",
+#     "Size": 20480
+# }
+
+
+# # Part 8 — Command Line Arguments
+
+# Use your Week 1 knowledge:
+
+# ```python
+# argparse
+# ```
+
+# Your program should support:
+
+# ```bash
+# python backup.py --config config.ini
+# ```
+
+# Later:
+
+# ```bash
+# python backup.py --config office.ini
+# ```
+
+# Different configuration, same program.
+
+# ---
+
+# # Final Program Flow
+
+# Your `main()` should look conceptually like:
+
+# ```python
+# def main():
+
+#     load_config()
+
+#     create_paths()
+
+#     find_files()
+
+#     copy_files()
+
+#     save_state()
+
+#     create_json_metadata()
+
+#     create_csv_report()
+# ```
+
+# Notice something?
+
+# This is basically software architecture.
+
+# Each part has one responsibility.
+
+# ---
+
+# # Development Strategy
+
+# Do **not** write everything at once.
+
+# Build in stages.
+
+# ## Stage 1
+
+# Only:
+
+# * Read config.
+# * Print source and destination.
+
+# Goal:
+
+# ```text
+# Source: documents
+# Destination: backup
+# ```
+
+# ---
+
+# ## Stage 2
+
+# Add:
+
+# * pathlib
+# * file discovery
+
+# Output:
+
+# ```text
+# Found:
+# report.pdf
+# photo.jpg
+# ```
+
+# ---
+
+# ## Stage 3
+
+# Add:
+
+# * shutil copying
+
+# Output:
+
+# ```text
+# Copied report.pdf
+# Copied photo.jpg
+# ```
+
+# ---
+
+# ## Stage 4
+
+# Add:
+
+# * pickle state
+
+# ---
+
+# ## Stage 5
+
+# Add:
+
+# * JSON metadata
+# * CSV report
+
+# ---

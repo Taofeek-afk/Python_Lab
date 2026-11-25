@@ -1,0 +1,76 @@
+By default, Python doesn't know how to compare custom objects using operators like <, >, or ==. If you try to compare two instances, Python compares their memory addresses.
+
+__eq__(self, other) -> ==
+
+__ne__(self, other) -> !=
+
+__lt__(self, other) -> <
+
+__le__(self, other) -> <=
+
+__gt__(self, other) -> >
+
+__ge__(self, other) -> >=
+
+NotImplemented is a special built-in singleton value in Python (not an exception!). It allows Python to check if the other datatype has a workaround to resolve comparison between objs of diff instances.
+
+
+The Container vs. Sequence Distinction
+Python categorizes collection protocols into distinct tiers:
+
+Container Protocol (__contains__): Supports membership testing using the in operator.
+
+Sized Protocol (__len__): Supports the len() function.
+
+Iterable Protocol (__iter__): Supports loops (for x in obj).
+
+Sequence Protocol (__getitem__, __setitem__, __delitem__): Supports integer indexing (obj[0]), slicing (obj[1:3]), and element mutation/deletion.
+
+If you implement __len__ and __getitem__, Python automatically gains the ability to slice your object, iterate over it from start to finish, and use the in operator—even if you didn't write an explicit __iter__ or __contains__ method! Python's runtime loops through indices from 0 up to len(obj) - 1.
+
+
+Python forces you to explicitly wrap the value in a sequence (like [12]) to remove ambiguity.
+
+If Python automatically accepted raw integers for slices, it would have to guess your intent:
+
+Did you want to replace those 5 slots with a single element (12)?
+
+Or did you mean something else?
+
+Numpy uses broadcasting
+
+assigning a customclass with a sliced getitem to a non-iterable will raise an error because Pthon tries iter(non-iterable)
+
+
+To build a custom context manager, a class must implement two dunder methods:
+
+__enter__(self): Runs right when the with block begins. Whatever this method returns is bound to the as variable (e.g., with MyContext() as target:).
+
+__exit__(self, exc_type, exc_val, exc_tb): Runs when the with block exits—whether it finishes normally or crashes due to an exception.
+
+It receives exception details if an error occurred inside the block.
+
+If __exit__ returns True, Python swallows the exception and suppresses it. If it returns None (or falsy), the exception propagates outward normally.
+
+
+The value of a context manager isn't that it guesses what to close; it's that Python guarantees __exit__ will run even if a bug crashes your code halfway through the block.
+
+When an exception crashes your with block, Python passes three arguments to __exit__:
+
+exc_type: The class of the exception (e.g., ValueError, ZeroDivisionError, TypeError).
+
+exc_val: The actual exception message/instance (e.g., ValueError("Insufficient funds!")).
+
+exc_tb: The traceback object (a linked list of stack frames showing the exact line number and file where the crash happened).
+
+
+
+
+==========================================================================================================================
+
+What is Object Pooling? (with an Example)
+Object Pooling is a creational design pattern used to optimize performance when creating objects is computationally expensive (e.g., database connections, network sockets, or heavy game assets).
+
+Instead of creating a new object every time one is requested and destroying it when done, a "pool" maintains a fixed collection of pre-initialized objects. When code needs a resource, it borrows one from the pool; when it's done, it returns it to the pool for the next task.
+
+Singletons don't take args.

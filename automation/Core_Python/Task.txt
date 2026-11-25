@@ -1,0 +1,10 @@
+stead of artificial exercises, I'll give you tasks like:
+
+Organize a Downloads folder by file type.
+Rename 5,000 images into a consistent naming scheme.
+Find duplicate files using hashes.
+Watch a folder and automatically move new PDFs.
+Generate a disk usage report.
+Back up projects older than 30 days.
+Batch-convert images by calling an external tool with subprocess.
+Build a simple command-line utility that accepts arguments with sys.argv.

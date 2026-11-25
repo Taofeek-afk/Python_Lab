@@ -1,0 +1,45 @@
+Because of this, multi-threading offers zero speedup for CPU-bound pure Python code. In fact, it can sometimes be slower due to the overhead of the CPU constantly switching which thread holds the GIL (called GIL thrashing).
+
+cooperative scheduling (asyncio) tries to avoid preemptive OS threads whenever possible!
+
+If you have thousands of OS threads switching constantly, you get thrashing—where the CPU spends more time managing threads than doing actual work.
+
+Because this happens hundreds of times a second,(context-switching), it creates the illusion of parallel execution on a single-core CPU, and it ensures that no single misbehaving thread can hog the processor forever.
+Time slices ensure fairness so small tasks never get starved.
+
+
+When multiple requests hit a standard synchronous endpoint (def), FastAPI relies entirely on multi-threading (via its background thread pool managed by AnyIO) to handle them concurrently.
+
+
+An OS thread is just a CPU execution container; the Python interpreter is the engine running inside it.
+
+CPython has a built-in counter (or time check) that forces a thread to drop the GIL after a certain number of bytecode instructions (or when a time slice expires), giving other threads a fair chance.
+
+Even if the event loop has millions of async tasks to run back-to-back without ever hitting an await, Python's interpreter has a built-in rule: No single thread is allowed to hold the GIL forever.
+
+As soon as the event loop thread hits Python's internal switch interval (usually every 5 milliseconds or a certain number of bytecode instructions), CPython forcefully forces that thread to drop the GIL. This opens a window for one of FastAPI's external thread pool threads to grab the GIL, run its synchronous code, and get work done.
+
+
+
+
+
+****
+AppSec:
+What it is: A software-level timer inside the CPython interpreter (controlled by sys.getswitchinterval(), defaulting to 0.005 seconds / 5 milliseconds).
+
+
+In computer science, an atomic operation is an action that is indivisible and un-interruptible.
+
+What makes something atomic: An atomic operation executes completely from start to finish as a single, unbreakable block. No other thread can peek at or modify the data midway through. In Python, very few things are truly atomic (like appending to a list), which is why we use Lock to force non-atomic operations (like dictionaries or counters) to behave atomically.
+
+A deadlock occurs when two or more threads are permanently blocked, each waiting for a lock held by the other.
+
+How do you prevent deadlocks?
+Strict Lock Ordering: Always acquire multiple locks in the exact same global order across your entire codebase (e.g., always grab Lock A before Lock B, never reverse it in other functions).
+
+Timeouts: Python's locks don't have built-in timeouts, but you can use threading.RLock or contextlib patterns, or check locks manually with non-blocking .acquire(blocking=False) so a thread can back off if it gets stuck.
+
+
+Scenario A (Waiting for the GIL): If Thread 1 is currently holding the GIL, Thread 2 arrives on the CPU core, realizes it can't get the GIL, and has to wait. While it's waiting, its OS time slice is burning away. The OS might force-switch Thread 2 off the CPU before it ever even gets a chance to touch the GIL! This is called GIL contention.
+
+Python multi-threading can feel sluggish or chaotic: threads are fighting a two-front war—they have to win a time slice from the OS and win the GIL from CPython, all while sharing the exact same memory space!

@@ -1,0 +1,97 @@
+A recursion call have a life cycle
+
+Call function
+     ↓
+Create stack frame
+     ↓
+Execute function
+     ↓
+Return
+     ↓
+Remove stack frame
+
+The idea of "pause the current function, execute the function it called, then come back" is fundamental.
+
+
+┌──────────────────────────────┐
+│       Recursive Function     │
+├──────────────────────────────┤
+│  1. Base case                │
+│     ↓                        │
+│     Stop                     │
+│                              │
+│  2. Recursive case           │
+│     ↓                        │
+│     Call itself with         │
+│     a smaller/simpler input  │
+└──────────────────────────────┘
+
+The base case says:
+
+"When we reach this state, stop."
+
+The recursive case says:
+
+"Otherwise, solve a smaller version of the same problem."
+
+
+Every recursive call should make progress toward the base case.
+
+
+Recursion Pattern to Memorize
+
+Not the code; the structure:
+
+def recursive_function(problem):
+    if base_case:
+        return result  # or accumulated result
+
+    return current_work +/× recursive_function(smaller_problem)
+
+The exact operation depends on the problem.
+
+
+             CALLING DOWN
+                  ↓
+power(2,4)
+power(2,3)
+power(2,2)
+power(2,1)
+power(2,0)
+                  ↓
+             BASE CASE
+                  ↓
+             UNWINDING UP
+                  ↑
+2 × 1 = 2
+2 × 2 = 4
+2 × 4 = 8
+2 × 8 = 16
+
+So recursion isn't inherently more efficient.
+
+It's often valuable because it makes certain problems much easier to express.
+
+
+Trees are a special kind of graph. 
+
+
+The big difference from Merge Sort
+
+Merge Sort:
+
+split first
+   ↓
+sort recursively
+   ↓
+merge
+
+Quick Sort:
+
+choose pivot
+   ↓
+partition
+   ↓
+sort partitions recursively
+
+That's the core distinction.

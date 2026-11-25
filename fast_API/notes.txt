@@ -1,0 +1,18 @@
+# SideNote; 
+# SQLEnum: MySQL / SQLite: It creates a string column constrained by a database. PostgreSQL: It creates a literal ENUM datatype in SQL (CREATE TYPE orderstatus AS ENUM ...).
+# When you fetch data using SQLAlchemy, SQLEnum automatically intercepts the SQL string (e.g., 'pending') and converts it into your actual OrderStatus.PENDING Python object.
+# SQLEnum bridges the gap between Python and your database, ensuring that enum enforcement exists at every layer of your application:
+
+Think database level enforcement.
+
+
+# Frontend (Google Places Autocomplete): Your user picks a verified address from the Google Maps dropdown on the UI. The frontend gets a valid string and a unique google_place_id.
+# Backend Validation (Pydantic / FastAPI): Before saving to SQLAlchemy, your Pydantic request schema validates the address or verifies the place_id against the Google Maps API.
+# Database Storage: Save the validated formatted address string (and optionally a google_place_id column) to your model.
+    
+    # Fixed SLA (Simple): Add 30–45 minutes to the order creation time:
+    # delivery.estimated_delivery = datetime.now(timezone.utc) + timedelta(minutes=45)
+    # Google Distance Matrix API + ARQ (Advanced): Call the Google Distance Matrix API with the restaurant's location and customer's address to calculate real-time driving duration, add kitchen prep time (e.g., 20 mins), and set the result.
+    
+When models are separated across multiple files, 
+Base.metadata.create_all will not automatically discover them unless Python actively executes (imports) those files before create_all() is called.

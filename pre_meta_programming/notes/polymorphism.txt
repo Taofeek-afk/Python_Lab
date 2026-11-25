@@ -1,0 +1,16 @@
+Pragmatic:
+    Dealing or concerned with facts or actual occurrences; practical.
+
+The philosophy of Duck-Typing
+
+
+In statically typed languages (Java, C++), polymorphism is heavily enforced through explicit interfaces or abstract base classes: a class must explicitly declare that it implements an interface.
+
+Python takes a dynamic, pragmatic approach known as Duck Typing, coined from the phrase:
+
+"If it walks like a duck and quacks like a duck, it's a duck."
+
+Python functions and classes do not care about an object's actual inheritance tree or class name. They only care about whether the object possesses the required attributes or methods when they are invoked.
+
+
+Polymorphism allows different object types to share a unified interface.

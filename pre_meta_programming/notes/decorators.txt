@@ -1,0 +1,2 @@
+A class decorator is simply a function that takes a class as its argument, modifies it, wraps it, or injects behavior into it, and returns that class.
+

@@ -1,0 +1,24 @@
+A metaclass is a class-builder. It hooks into the creation process of the class itself before any instances are ever built. You don't use metaclasses for standard code reuse; you use them to enforce architectural rules, validation, or automatic API registration.
+
+
+type is the metaclass (the factory) of everything.
+
+type is the built-in system responsible for creating classes. When Python runs a class statement, it calls type(name, bases, namespace) to build the class object.
+
+Because classes are objects, classes themselves must have a type—and their type is type. Therefore, type(MyClass) evaluates to <class 'type'>.
+
+The Mind-Bending Loop at the Bottom of Python:
+type is a class, so it inherits from object (isinstance(type, object) is True).
+
+object is a class, so its type is created by type (type(object) is <class 'type'>).
+
+type is an instance of itself (type(type) is <class 'type'>).
+
+Think of it this way: object is the ultimate parent (ancestry), while type is the ultimate manufacturer (factory).
+
+
+
+Class Decorators wrap the class after it has already been completely created by Python. They are great for modifying attributes, adding methods, or logging.
+
+Metaclasses intercept the creation process while the class is being compiled (__new__). They are better for structural validation, enforcing inheritance rules across large codebases, or changing how class dictionaries are built.
+

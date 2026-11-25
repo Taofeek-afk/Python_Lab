@@ -1,0 +1,10 @@
+Restaurant → Customer → MenuItem → Order → OrderItem 
+→ Payment → Delivery → 
+relationships/constraints → database setup 
+
+
+→ Pydantic 
+→ repository 
+→ service 
+→ FastAPI 
+→ tests

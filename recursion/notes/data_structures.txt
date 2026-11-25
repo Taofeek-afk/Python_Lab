@@ -1,0 +1,35 @@
+Trees
+
+        10
+       /  \
+      5    15
+     / \   / \
+    2   7 12 20
+
+Preorder:
+10 5 2 7 15 12 20
+
+Inorder:
+2 5 7 10 12 15 20
+
+Postorder:
+2 7 5 12 20 15 10
+
+
+Divide and conquer
+
+Merge Sort works by repeatedly dividing a list into smaller pieces.
+
+Base Case: A list containing one element is already sorted.
+
+
+             MERGE SORT
+                 │
+          ┌──────┴──────┐
+          ↓             ↓
+       DIVIDE          MERGE
+          ↓             ↑
+      recursively     combine
+      split           sorted parts
+
+

@@ -1,0 +1,656 @@
+Absolutely. Since you've already covered recursion, trees, graph DFS, binary search, merge sort, and quicksort, I'll make these **mechanically aligned**: each problem builds on the previous technique rather than randomly jumping in difficulty.
+
+The goal is to practice **both recursive and iterative thinking** so you learn when recursion is appropriate rather than just forcing recursion everywhere.
+
+# 50 Intermediate Recursion & Algorithm Problems
+
+### Difficulty progression
+1–10   → Recursive fundamentals
+11–20  → Arrays, strings & searching
+21–30  → Recursion vs iteration + nested structures
+31–40  → Trees, graphs & divide-and-conquer
+41–50  → Advanced recursion patterns
+```
+
+Phase 1 — Recursive Mechanics
+
+1. Countdown
+Write a recursive function that prints numbers from `n` down to `1`.
+Also write an iterative version.
+
+2. Count Up
+Print numbers from `1` to `n` recursively.
+
+3. Sum to N
+Implement:
+recursive
+iterative
+
+4. Factorial
+Implement recursively and iteratively.
+
+5. Power
+Implement both approaches.
+
+6. Product of Range
+Calculate:
+product_range(3, 6)
+3 × 4 × 5 × 6 = 360
+
+7. Sum of Even Numbers
+Calculate the sum of all even numbers from `1` to `n`.
+sum_even(10) → 30
+
+8. Count Digits
+Do it recursively.
+Then implement it iteratively.
+
+9. Sum of Digits
+Do it recursively
+
+10. Reverse an Integer
+Example:
+reverse_number(12345) → 54321
+Do not convert it to a string.
+
+
+Phase 2 — Strings & Arrays
+
+11. Reverse a String
+reverse("hello") → "olleh"
+Implement recursively.
+Then implement iteratively.
+
+12. Count Character Occurrences
+count_char("banana", "a") → 3
+Recursive version.
+
+13. Remove a Character
+remove_char("banana", "a")
+→ "bnn"
+Recursive.
+
+14. Check Palindrome
+is_palindrome("racecar") → True
+is_palindrome("hello") → False
+Use recursion.
+
+15. Find Maximum
+[4, 9, 2, 17, 6]
+Recursive version.
+Then iterative version.
+
+16. Find Minimum
+[8, 3, 10, 2, 7]
+
+17. Sum a List
+[2, 4, 6, 8] → 20
+Recursive and iterative versions.
+
+18. Count Positive Numbers
+[-2, 5, -1, 8, 3]
+Recursive.
+
+19. Recursive Linear Search
+Return whether a target exists.
+[4, 7, 2, 9]
+target = 9
+→ True
+Use an index rather than slicing.
+
+20. Recursive Find Index
+Return the index.
+[10, 20, 30, 40]
+target = 30
+→ 2
+
+
+Phase 3 — Searching & Algorithmic Thinking
+
+21. Binary Search
+Implement recursive binary search.
+
+Requirements:
+* sorted list
+* `left`
+* `right`
+* `mid`
+* return index
+* `-1` if missing
+
+22. Iterative Binary Search
+Implement the exact same algorithm using a `while` loop.
+Then compare:
+
+23. Binary Search for Strings
+Given:
+["Alice", "Bob", "Charlie", "David", "Eve"]
+search for:
+"David"
+Implement recursive binary search.
+
+24. First Occurrence
+Given:
+[1, 2, 2, 2, 4, 5]
+return the **first** index of `2`.
+Expected:
+1
+This requires modifying normal binary search.
+
+25. Last Occurrence
+Same array:
+[1, 2, 2, 2, 4, 5]
+Return:
+3
+
+26. Count Occurrences Efficiently
+Using binary-search reasoning, count how many times a value appears.
+[1,2,2,2,2,5,8]
+target = 2
+→ 4
+
+27. Recursive Greatest Common Divisor
+
+Implement Euclid's algorithm:
+
+```text
+gcd(48, 18) → 6
+```
+
+Think:
+
+```text
+gcd(a, b)
+→ gcd(b, a % b)
+```
+
+---
+
+### 28. Fibonacci
+
+Implement the basic recursive version:
+
+```text
+fib(0) → 0
+fib(1) → 1
+fib(6) → 8
+```
+
+Then implement an iterative version.
+
+Finally explain why the naive recursive version is inefficient.
+
+---
+
+### 29. Efficient Fibonacci
+
+Implement Fibonacci recursively using **memoization**.
+
+Compare:
+
+```text
+naive recursion
+memoized recursion
+iteration
+```
+
+Understand why their performance differs.
+
+---
+
+### 30. Recursive Exponentiation
+
+Calculate:
+
+```text
+2^10
+```
+
+but instead of recursively doing:
+
+```text
+2 * power(2, 9)
+```
+
+use the divide-and-conquer idea:
+
+```text
+xⁿ = (xⁿ/²)²
+```
+
+This should achieve:
+
+```text
+O(log n)
+```
+
+---
+
+# Phase 4 — Nested Structures, Trees & Graphs
+
+### 31. Flatten a Nested List
+
+Given:
+
+```python
+[1, [2, 3], [4, [5, 6]]]
+```
+
+produce:
+
+```python
+[1, 2, 3, 4, 5, 6]
+```
+
+**Recursive only.**
+
+---
+
+### 32. Sum a Nested List
+
+Given:
+
+```python
+[1, [2, 3], [4, [5, 6]]]
+```
+
+return:
+
+```text
+21
+```
+
+This teaches recursion over recursive data.
+
+---
+
+### 33. Count Nested Elements
+
+Count every integer inside:
+
+```python
+[1, [2, [3, 4]], 5]
+```
+
+Expected:
+
+```text
+5
+```
+
+---
+
+### 34. Tree Height
+
+Given a binary tree, recursively calculate its height.
+
+Example:
+
+```text
+        10
+       /  \
+      5    15
+     /
+    2
+```
+
+Height:
+
+```text
+3
+```
+
+---
+
+### 35. Count Tree Nodes
+
+Recursively count every node.
+
+```text
+        10
+       /  \
+      5    15
+     / \
+    2   7
+```
+
+Expected:
+
+```text
+5
+```
+
+---
+
+### 36. Find Maximum in a Binary Tree
+
+Do **not** assume it is a BST.
+
+```text
+        10
+       /  \
+      20   5
+```
+
+Return:
+
+```text
+20
+```
+
+This forces you to search both branches.
+
+---
+
+### 37. Tree Search
+
+Given a normal binary tree, recursively search for a value.
+
+Important distinction:
+
+```text
+Normal Binary Tree → potentially search both sides
+BST                → choose one side
+```
+
+---
+
+### 38. BST Search
+
+Implement recursive BST search.
+
+Use:
+
+```text
+target < node.value → left
+target > node.value → right
+```
+
+---
+
+### 39. Tree Traversals
+
+Implement:
+
+* preorder
+* inorder
+* postorder
+
+Then write an **iterative version** of at least one traversal.
+
+This is important because you'll see how recursion can hide stack management.
+
+---
+
+### 40. Graph DFS
+
+Implement recursive DFS:
+
+```python
+graph: dict[str, list[str]]
+```
+
+Use:
+
+```python
+visited: set[str]
+```
+
+Then implement the same DFS iteratively using your own stack.
+
+Compare the two.
+
+---
+
+# Phase 5 — Divide & Conquer
+
+### 41. Merge Function
+
+Given two sorted arrays:
+
+```text
+[1, 4, 8]
+[2, 3, 9]
+```
+
+produce:
+
+```text
+[1, 2, 3, 4, 8, 9]
+```
+
+No sorting function.
+
+---
+
+### 42. Merge Sort
+
+Implement recursive Merge Sort.
+
+You already know the mechanics, so this time focus on:
+
+* recursion tree
+* complexity
+* space usage
+
+---
+
+### 43. Quick Sort
+
+Implement recursive Quick Sort using your partition function.
+
+Track:
+
+```text
+low
+high
+pivot_index
+```
+
+---
+
+### 44. Quick Sort Trace
+
+Don't code initially.
+
+Given:
+
+```text
+[5, 2, 8, 1, 7, 3]
+```
+
+with last-element pivot, manually trace every partition until sorted.
+
+This tests whether you actually understand the recursion.
+
+---
+
+### 45. Recursive Min/Max Divide & Conquer
+
+Instead of scanning the array once, recursively split it:
+
+```text
+[8, 3, 7, 2, 9, 1]
+       ↓
+ left       right
+```
+
+Return both:
+
+```text
+(minimum, maximum)
+```
+
+This introduces **divide-and-conquer thinking** beyond sorting.
+
+---
+
+# Phase 6 — Advanced Recursive Reasoning
+
+### 46. Generate All Subsets
+
+Given:
+
+```text
+[1, 2, 3]
+```
+
+generate:
+
+```text
+[]
+[1]
+[2]
+[3]
+[1,2]
+[1,3]
+[2,3]
+[1,2,3]
+```
+
+This is your introduction to **backtracking**.
+
+---
+
+### 47. Generate All Permutations
+
+Given:
+
+```text
+[1, 2, 3]
+```
+
+generate every ordering:
+
+```text
+[1,2,3]
+[1,3,2]
+[2,1,3]
+[2,3,1]
+[3,1,2]
+[3,2,1]
+```
+
+Key mechanic:
+
+```text
+choose → recurse → undo
+```
+
+---
+
+### 48. Combination Sum
+
+Given:
+
+```text
+[2, 3, 6, 7]
+```
+
+and target:
+
+```text
+7
+```
+
+find combinations that add up to `7`.
+
+Example:
+
+```text
+[7]
+[2,2,3]
+```
+
+This develops controlled recursive exploration.
+
+---
+
+### 49. Maze / Path Finding
+
+Represent a grid:
+
+```text
+S . .
+# # .
+. . E
+```
+
+Recursively determine whether there is a path from `S` to `E`.
+
+You'll need:
+
+* boundaries
+* visited cells
+* recursive movement
+* backtracking
+
+---
+
+### 50. Final Challenge — Algorithm Selector
+
+For each problem below, decide:
+
+> **Recursion or iteration? Why?**
+
+Then implement your choice.
+
+1. Sum `1..1,000,000`
+2. Binary search
+3. Tree traversal
+4. Graph DFS
+5. Merge Sort
+6. Generate permutations
+7. Count characters in a string
+8. Find maximum in an array
+9. Fibonacci
+10. Navigate a maze
+
+For each one, state:
+
+```text
+Approach:
+Time complexity:
+Space complexity:
+Why this approach?
+```
+
+---
+
+# Your progression
+
+The mechanical progression is intentional:
+
+```text
+Basic recursion
+      ↓
+Base case / recursive case
+      ↓
+Arrays & strings
+      ↓
+Searching
+      ↓
+Binary search
+      ↓
+Multiple recursive calls
+      ↓
+Nested structures
+      ↓
+Trees
+      ↓
+Graphs
+      ↓
+Divide & conquer
+      ↓
+Merge Sort
+      ↓
+Quick Sort
+      ↓
+Backtracking
+      ↓
+Decision trees
+      ↓
+Advanced problem solving
+```
+
+**Don't solve all 50 at once.** Treat them as a problem bank. Start at **#1**, and move sequentially; I'll review your solutions, point out mistakes, and increase the difficulty mechanically rather than just giving you answers.

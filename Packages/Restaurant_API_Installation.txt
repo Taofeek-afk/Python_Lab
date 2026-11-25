@@ -1,0 +1,31 @@
+sudo apt install python3-venv
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install "fastapi[standard]"
+pip install "python-jose[cryptography]" python-dotenv "passlib[bcrypt]" "sqlalchemy[asyncio]" pydantic
+"pwdlib[argon2]" -- from pwdlib import PasswordHash  # Modern alternative, yet to install.
+
+pip cache info
+pip cache purge
+pip list
+
+
+Learn uv
+
+pip install uv
+uv init folder
+cd folder
+uv add 1, 2, 3, 4. 
+uv remove dependencies
+uv run uvicorn main:app --reload
+
+uv pip list
+uv tree
+uv pip check
+
+uv cache info
+uv cache clean
+
+uv lock --upgrade  all packages update
+uv add fastapi@latest  one package

@@ -1,0 +1,184 @@
+Prerequisites
+
+Functions
+Parameters and return values
+Local variables
+Call stack basics
+
+What recursion actually is
+
+A function calling itself
+Why someone would use recursion
+Recursion vs. iteration (for/while)
+Recognizing recursive problems
+The two essential parts
+
+Base case — what stops the recursion
+Recursive case — what moves the problem toward the base case
+What happens when either is wrong
+The mechanics
+
+What happens during each function call
+How calls are placed on the call stack
+How they "unwind"
+Tracing recursion by hand
+Syntax
+
+Basic recursive function structure
+Parameters
+Return values
+Multiple recursive calls
+Recursive functions that return vs. don't return values
+Your first examples
+
+Countdown
+Counting
+Summing numbers
+Factorial
+Power/exponentiation
+What makes recursion work
+
+Making the problem smaller
+Progress toward a base case
+Returning results correctly
+Maintaining the right state
+What breaks recursion
+
+Missing base case
+Base case that can never be reached
+Recursive call that doesn't make progress
+Incorrect return statements
+Changing the wrong variable
+Excessive recursion depth
+Tracing and debugging
+
+Drawing call-stack diagrams
+Using print statements
+Predicting output before running code
+Finding exactly where recursion goes wrong
+Classic recursive structures
+
+Strings
+Arrays/lists
+Nested data
+Trees
+Linked lists
+Multiple recursive calls
+
+Fibonacci as a teaching example
+Why some recursive solutions become inefficient
+Understanding branching
+Recursion and efficiency
+
+Time complexity
+Space complexity
+Stack space
+Why recursion isn't automatically "better"
+Recursion vs. iteration
+
+When recursion is natural
+When loops are simpler
+Converting recursion ↔ iteration
+More advanced patterns
+
+Divide and conquer
+Backtracking
+Tree traversal
+Searching
+Sorting
+Dos and don'ts
+
+Good recursive habits
+Common beginner mistakes
+When not to use recursion
+How to write readable recursive functions
+Practice progression
+
+Very easy tracing exercises
+Fill-in-the-base-case exercises
+Write-your-own-recursion exercises
+Debug broken recursive functions
+Real problems
+Challenge problems
+And the important part
+
+I wouldn't just give you the syllabus and then dump a bunch of explanations on you.
+
+We can make it a guided course. For each lesson, I'd use a pattern like:
+
+
+Concept → tiny example → line-by-line walkthrough → trace it manually → you predict what happens → we check it → common mistake → exercise → slightly harder exercise
+
+For example, before touching something complicated, we'd get to the point where you can look at:
+def countdown(n):
+    if n == 0:
+        return
+    print(n)
+    countdown(n - 1)
+
+
+and confidently explain:
+
+What n is
+Why n == 0 matters
+What countdown(n - 1) does
+Why it doesn't continue forever
+What happens to each function call
+Why the output is 3 2 1 when starting with countdown(3)
+What would break if we changed n - 1
+What happens when the function reaches 0
+Why return is different from countdown(n - 1)
+
+That mental model is the real goal. Once you understand what's happening underneath, factorial, tree traversal, backtracking, and divide-and-conquer stop looking like completely different topics.
+
+
+Trees
+   ↓
+Tree traversal
+
+Graphs
+   ↓
+DFS
+
+Sorting
+   ↓
+Merge sort / quicksort
+
+Searching
+   ↓
+Binary search
+
+Combinatorial problems
+   ↓
+Backtracking
+
+Large problems
+   ↓
+Divide and conquer
+
+
+
+
+
+Remaining recursion course
+Lesson	Topic
+24	Quicksort — partitioning ← we're here
+25	Quicksort — implementation + complexity
+26	Recursion vs iteration + when to use recursion
+27	Backtracking fundamentals
+28	Backtracking problem
+29	Divide & conquer patterns
+30	Recursion review + final challenge
+
+We've already covered:
+
+Recursion fundamentals
+Base/recursive cases
+Call stack & tracing
+Strings/lists
+Linear search
+Binary search
+Trees & traversal
+BST search
+Graph DFS
+Merge So

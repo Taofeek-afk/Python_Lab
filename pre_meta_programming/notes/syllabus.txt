@@ -1,0 +1,151 @@
+Phase 1: Core OOP Pillars & Architecture
+Mastering how objects interact, share state, and protect data.
+
+Encapsulation & Access Control: Public vs. protected (_prop) vs. private (__prop name mangling). Property getters/setters vs. public attributes.
+
+Inheritance & Method Resolution Order (MRO): Single vs. multiple inheritance, the diamond problem, and how Python computes MRO using super() and the C3 linearization algorithm.
+
+Polymorphism & Duck Typing: Designing clean interfaces where different classes implement shared method signatures.
+
+Composition vs. Inheritance: Knowing when to use "has-a" relationships instead of "is-a" relationships to build decoupled, flexible code.
+
+Phase 1: Core OOP Pillars & Architecture
+Focus: Internalizing state management, decoupling logic, and understanding how Python structures object hierarchies at runtime.
+
+Module 1.1: Encapsulation Mechanics & Name Mangling
+
+Public, protected (_), and private (__) attributes.
+
+How Python's compiler transforms double-underscore attributes (Name Mangling via _ClassName__variable).
+
+Enforcing immutability patterns and hiding internal implementation details.
+
+Module 1.2: Inheritance & The Method Resolution Order (MRO)
+
+Single vs. Multiple inheritance architectures.
+
+The Diamond Problem and Python's transition to the C3 Linearization algorithm.
+
+Inspecting MRO programmatically (ClassName.__mro__ / ClassName.mro()).
+
+The mechanics of super(): It does not point to the "parent class", it points to the next class in the MRO chain.
+
+Module 1.3: Polymorphism & Duck Typing
+
+Protocol-based design in dynamic languages.
+
+Enforcing behavior without strict type hierarchies.
+
+Module 1.4: Composition over Inheritance
+
+Analyzing tight coupling vs. loose coupling.
+
+Implementing "Has-A" patterns (Delegation and Mixins) to avoid deep, unmaintainable inheritance trees.
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+
+Phase 2: Advanced Class Mechanics
+Unlocking Python's built-in dunder protocols to make custom classes feel like native types.
+
+Comprehensive Dunder Protocols:
+
+Representation: __str__, __repr__
+
+Comparison & Ordering: __eq__, __lt__, etc.
+
+Container & Sequence Protocols: __len__, __getitem__, __iter__
+
+Abstract Base Classes (ABCs): Using the abc module to define strict interfaces and enforce that child classes implement required methods using @abstractmethod.
+
+Slots and Memory Optimization: Using __slots__ to restrict instance dictionaries and slash memory overhead for high-performance classes.
+
+Context Managers (__enter__ and __exit__): Writing custom resource managers from scratch.
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+****************************************************************************************************************************************************************************************************************************************************
+
+
+Phase 3: Metaprogramming & Class Inspection
+Controlling how classes are born and built before execution.
+
+__new__ vs. __init__: Understanding object creation vs. object initialization (and immutable object manipulation).
+
+Class Decorators: Functions that wrap entire classes to inject methods or modify attributes.
+
+Metaclasses (type subclassing): Writing custom metaclasses to intercept class creation (__new__, __init__) and automatically validate class attributes across large systems.
+
+Phase 3: Metaprogramming & Class Inspection
+Focus: Intercepting object creation, writing class decorators, and building custom metaclasses to govern code execution before instantiation.
+
+Module 3.1: Object Construction vs. Initialization (__new__ vs. __init__)
+
+Deep dive into the instantiation pipeline: When is __new__ called vs. __init__?
+
+Subclassing immutable types (like str or int) by overriding __new__.
+
+Module 3.2: Class Decorators
+
+Functions that take a class as input, modify or wrap its methods/attributes, and return it.
+
+Using class decorators as a lightweight alternative to metaclasses.
+
+Module 3.3: Metaclasses Fundamentals
+
+The realization that "Classes are objects too, and their class is type."
+
+Inspecting the type hierarchy (type(obj) -> Class -> type).
+
+Custom metaclasses by inheriting from type.
+
+Overriding __new__ and __init__ on a metaclass to intercept class creation at compile-time.
+
+Module 3.4: Practical Metaprogramming Design Patterns
+
+Automatic attribute registration and plugin architectures.
+
+Enforcing strict coding standards or schema validation across entire modules automatically.
+
+
+
+==============================================================================================================================================================================================================================================================================================================================================================================
+
+Option A: Concurrency & Asynchronous Programming (asyncio, async/await, Event Loops)
+What it is: Moving beyond synchronous, single-threaded code to handle thousands of concurrent I/O operations (network requests, database queries, web sockets) efficiently using Python's event loop.
+
+Why it matters: This is the bedrock of modern Python backends (like FastAPI, which you explore) and asynchronous agentic architectures.
+
+Option B: Advanced Typing & Structural Subtyping (typing.Protocol, Generics, Type Variances)
+What it is: Mastering Python's type system beyond basic hints—using Protocol (static duck typing/interfaces), generic classes (Generic[T]), and type narrowing to make massive codebases strictly checkable by tools like mypy without losing Python's flexibility.
+
+Why it matters: Essential for enterprise software engineering and building robust APIs.
+
+Option C: Architectural Design Patterns (Gang of Four in Python)
+What it is: Implementing structural, behavioral, and creational design patterns (Observer, Strategy, Factory, Adapter, Command) idiomatically using Python's dunder methods and first-class functions rather than rigid Java/C++ boilerplate.
+
+
+
+Standard Libraries for Metaprogramming
+To master metaprogramming and dynamic code manipulation in Python, you don't need dozens of libraries. You just need to master 5 core standard libraries:
+
+inspect (The Introspection Master):
+
+Lets you look inside live code at runtime. You can extract source code text, inspect function signatures, check parameter types, and trace caller frames.
+
+ast (Abstract Syntax Tree):
+
+Lets you parse Python source code into a syntax tree, modify code structure programmatically (like a compiler), and turn it back into executable code.
+
+types (Dynamic Construction):
+
+Provides low-level utilities to dynamically create new classes (types.new_class), functions, or modules on the fly.
+
+functools (Wrappers & Utilities):
+
+Essential for writing clean decorators using @functools.wraps so your wrapped functions don't lose their original __name__ and docstrings.
+
+importlib (Dynamic Imports):
+
+Allows you to import modules, reload code packages, or load python files dynamically from file paths at runtime (crucial for auto-discovering plugins).

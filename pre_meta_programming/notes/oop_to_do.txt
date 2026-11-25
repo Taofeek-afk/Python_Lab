@@ -1,0 +1,102 @@
+Phase 1: Core OOP Pillars, MRO & Descriptors (1–7)
+Name Mangling: If you define a class attribute as __secret = 42 inside a class named Vault, what exact string does Python rename it to internally, and how can external code still access it?
+
+C3 Linearization: Write out (or explain the rule for) how Python resolves the Method Resolution Order (MRO) in a classic diamond inheritance problem, and what happens if the graph creates an invalid ordering graph.
+
+Composition vs. Inheritance: In a game engine development scenario, why is composing a Player class with a MovementComponent and a RenderComponent generally preferred over multi-level deep inheritance? 
+
+Duck Typing: Explain how Python's duck typing differs structurally from interfaces in statically typed languages like Java or Go.
+
+Descriptor Protocol: What are the three methods that define the descriptor protocol (__get__, __set__, __delete__), and what makes a descriptor a non-data descriptor versus a data descriptor?
+
+Replicating @property: Write a pure Python descriptor class that mimics Python's built-in @property decorator (supporting a getter function).
+
+Subclassing Descriptors: If a descriptor is assigned as a class attribute, why is it stored on the class dictionary rather than the instance dictionary, yet it can still access instance-specific data via self or instance arguments passed into __get__?
+
+Phase 2: Advanced Class Mechanics & Protocols (8–18)
+Comparison Protocols: Why does Python require you to implement multiple comparison operators (__lt__, __eq__, etc.) manually by default, and what does @total_ordering automate under the hood?
+
+NotImplemented Mechanics: What is the precise difference between returning NotImplemented from __lt__ versus raising a TypeError directly? How does Python use the reflected operation as a fallback?
+
+Container Slicing: If you implement __getitem__ on a custom container class, how does Python handle slicing (e.g., obj[1:5]) without you having to write custom slicing logic?
+
+Shallow vs. Deep Copy: If a custom collection wraps a list via shallow copy (list(items)), what happens to the internal state if an item inside the collection is a mutable dictionary modified externally?
+
+Iterators and Generators: Why must the __iter__ method return an iterator object (something with a __next__ method), and what exception does a for loop catch to know when to terminate?
+
+Abstract Base Classes: Can you instantiate an Abstract Base Class (ABC) directly if it contains a mix of both concrete methods and abstract methods? Why or why not?
+
+Signature Mismatch: What error occurs if an ABC defines an abstract method as def save(self, path: str): but a subclass implements it as def save(self):? When does this error manifest?
+
+__slots__ Memory Footprint: How do __slots__ alter an instance's memory structure compared to the default dynamic dictionary (__dict__), and what are the functional trade-offs?
+
+Slotted Inheritance: What happens to memory optimization if a slotted class inherits from a parent class that does not use __slots__?
+
+Context Managers (__enter__/__exit__): What are the three exception arguments passed into __exit__, and what must __exit__ return if you want Python to suppress an exception that occurred inside the with block?
+
+Context Manager Factories: Can a context manager class act as a factory? Explain how __enter__ can dynamically generate and return a working worker or connection instance.
+
+Phase 3: Instantiation, Metaprogramming & Architecture (19–30)
+The Instantiation Pipeline: Describe the exact sequence of execution when obj = MyClass("test") runs, differentiating the responsibilities of __new__ versus __init__.
+
+Immutables & __new__: Why is it impossible to modify the core value of an immutable built-in type (like str or int) inside __init__, and why must it be intercepted in __new__?
+
+Object Pooling: What is the performance objective of an object pool pattern, and how does it differ from a standard instantiation lifecycle?
+
+Singleton Implementation: Write a clean Singleton implementation using __new__ that ensures a class only ever instantiates a single memory address.
+
+Singleton Re-initialization Guard: Why does Python automatically call __init__ on a Singleton instance even if __new__ returns an already existing object, and how does getattr(self, "_initialized", False) prevent attribute corruption?
+
+The type vs. object Hierarchy: Explain the fundamental difference between object (the ultimate ancestor) and type (the ultimate metaclass/factory). What is type(type) and type(object)?
+
+Metaclass Inheritance: Must every custom metaclass inherit from type? Explain why regular inheritance rules do not apply to metaclasses the same way they apply to standard objects.
+
+Class Compilation Interception: What are the four arguments received by a metaclass's __new__ method (mcs, name, bases, namespace), and at what point in Python's lifecycle do they execute?
+
+Enforcing Constraints via Metaclasses: Write out the logical flow of a metaclass that inspects the incoming namespace dictionary to ensure a specific method signature exists before the class is allowed to be compiled.
+
+Class Decorators vs. Metaclasses: What is the functional difference between a class decorator and a metaclass regarding when they modify or inspect the class?
+
+Plugin Architecture Design: Explain how a metaclass can maintain a global registry dictionary to automatically track and store every subclass created from a base plugin class.
+
+Decoupling via Registries: Why do automatic plugin registries eliminate the need for a "central file" (like a massive manual import router), and what security or namespace collision risks should an architect watch out for?
+
+
+
+Project 1: The "ORM-Lite" Field Validator & Schema Registry
+Core Concepts Tested: Descriptors, Metaclasses, __slots__, and Class Inspection.
+
+The Goal: Build a mini Object-Relational Mapper (ORM) system where classes define their fields using descriptor classes, and a metaclass automatically registers the schema and validates inputs at runtime.
+
+Requirements:
+Create a data descriptor class named Field (or specific subclasses like IntegerParam and StringParam) that handles type checking and attribute storage. If someone passes the wrong type, raise a TypeError.
+
+Create a custom metaclass named ModelMeta. When any model class is defined using this metaclass, it should inspect the class namespace, pull out all the Field descriptors, and store them in a class-level dictionary called _schema.
+
+Create a base class Model using ModelMeta. When you instantiate a model (e.g., user = User(age=25, name="Alice")), it should use the schema to validate the incoming keyword arguments against the descriptors before saving them.
+
+Project 2: The Fault-Tolerant Object Pool & Transaction Context Manager
+Core Concepts Tested: Object Pooling, Context Managers (__enter__/__exit__), and Exception Suppression/Propagation.
+
+The Goal: Build a resource management system that pools expensive worker objects, allows users to check them out safely using a with statement, and automatically handles rollback and recycling if a failure occurs.
+
+Requirements:
+Create a Worker class that has a unique ID and a status (e.g., "IDLE", "BUSY", "DEAD").
+
+Create an ObjectPool class that pre-allocates a fixed number of Worker instances (e.g., a pool of 3). It must have .acquire() and .release() methods.
+
+Build a custom context manager class named PooledTransaction. When entered, it grabs an available worker from the pool. If work succeeds, it releases the worker back to the pool cleanly. If an exception crashes the with block, it marks the worker as "DEAD", discards it, creates a fresh replacement worker for the pool, and cleanly propagates the exception outward.
+
+Project 3: The Auto-Registering Plugin CLI Router
+Core Concepts Tested: ABCs, Plugin Metaclass Registries, Container Protocols (__getitem__, __len__, __iter__), and Duck Typing.
+
+The Goal: Build a command-line interface (CLI) plugin router where adding a new command file automatically registers it into a global registry, and the router acts as an iterable container.
+
+Requirements:
+Create an Abstract Base Class named BaseCommand with an abstract method execute(self, args).
+
+Create a metaclass named CommandRegistryMeta that automatically registers any subclass of BaseCommand into a centralized dictionary based on a class-level attribute command_name.
+
+Create a CommandRouter class that implements the container and sequence protocols (__len__, __getitem__, __iter__) using the registered metaclass data. This allows you to loop through all available commands using a standard for loop or check if a command exists using in.
+
+Which of these three projects do you want to tackle first? Pick one, write out your initial code structure, and we will review and debug it together!

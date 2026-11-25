@@ -1,0 +1,77 @@
+Master Curriculum: The Concurrency Trinity to FastAPI
+Phase 1: Core Principles & Hardware Reality
+I/O-Bound(Wait-heavy) vs. CPU-Bound(Compute-Heavy): Measuring wait time (disk/network sockets) vs. execution time (ALU/CPU cycles).
+
+"Basically, time is lost when the ALU is working on complex stuffs (cryptographic hashing) which means other requests might have to wait for it, and the I/O bound is the required delay when a program needs to interact with something outside its memory, like someone waiting for a delivery."
+
+*** The Global Interpreter Lock (GIL): How the CPython interpreter uses a mutex to protect object memory management, and why GIL release happens during native C extensions and OS socket waits. 
+
+In CPython (the standard Python interpreter), the GIL is a mutex (Mutual Exclusion lock) that ensures only one native OS thread executes Python bytecode at any given moment. Even if you run on a 16-core CPU, a pure Python multi-threaded script will only ever utilize a single core for bytecode execution.
+
+Why does it exist? Memory management. CPython uses reference counting for garbage collection. Every Python object has a reference count (ob_refcnt). If two threads simultaneously increment or decrement the reference count of the exact same object, it leads to memory corruption, dangling pointers, or segmentation faults. The GIL protects CPython's internal data structures.
+
+When does the GIL release?
+
+The GIL is not held indefinitely. CPython automatically releases the GIL when a thread enters a blocking I/O operation (e.g., waiting for an OS socket read or writing to disk) or when executing heavy native C extensions (like NumPy vector math or file reading in C libraries). This allows other threads to run. ***
+
+"Async (asyncio) achieves concurrency with one thread multiplexing many tasks via an event loop and non-blocking sockets.
+Sync Thread Pools achieve concurrency by spinning up multiple OS threads, letting the OS manage them, and relying on threads to drop the GIL when they block."
+
+Preemptive vs. Cooperative Scheduling: OS-level thread scheduling vs. user-space event loop yield points.
+
+
+
+Phase 2: Threads (ThreadPoolExecutor)
+Python threading overhead and shared-memory race conditions.
+
+Offloading blocking synchronous I/O using concurrent.futures.ThreadPoolExecutor.
+
+Deadlocks, thread pools, and GIL behavior during thread switching.
+
+"How to Tackle Phase 2 Step-by-Step
+Since you understand the underlying concepts, I recommend tackling your roadmap in this order:
+
+Step 1: Understand Raw Threads (threading module)
+
+Build a quick script creating raw threading.Thread instances. Watch how they share the same memory space and why printing from them simultaneously causes text interleaving.
+
+Step 2: Tackle Shared-Memory Race Conditions & Locks
+
+Write a loop where 10 threads increment a global counter at the exact same time without a threading.Lock(). Watch the counter break due to race conditions, then fix it with a lock.
+
+Step 3: Level Up to ThreadPoolExecutor (concurrent.futures)
+
+Move away from manual threads. Learn how to map functions to a pool using executor.submit() or executor.map(), which manages the worker reuse and cleanup automatically.
+
+Step 4: Study Deadlocks
+
+Intentionally create a classic deadlock (Thread A holds Lock 1 and waits for Lock 2, while Thread B holds Lock 2 and waits for Lock 1) so you can recognize the symptoms immediately."
+
+
+Phase 3: Multiprocessing (ProcessPoolExecutor)
+Bypassing the GIL via operating system process fork/spawn model (fork, spawn, forkserver).
+
+Shared memory, process isolation, and IPC (Inter-Process Communication) overhead using multiprocessing / ProcessPoolExecutor.
+
+Memory footprint considerations when scaling across physical CPU cores.
+
+
+
+Phase 4: asyncio & Cooperative Multitasking
+The Event Loop under the hood (epoll/kqueue file descriptors).
+
+Coroutines, generators, async def, and the mechanic of await.
+
+Tasks, Futures, asyncio.gather(), and task cancellation semantics.
+
+Running blocking code inside async loops via asyncio.to_thread().
+
+
+
+Phase 5: Demystifying FastAPI & ASGI
+WSGI vs. ASGI: Moving from synchronous worker processes to asynchronous frame handling.
+
+How FastAPI/Uvicorn processes async def endpoint() vs def endpoint().
+
+Avoiding thread-pool starvation and event-loop blocking in production routes.
+

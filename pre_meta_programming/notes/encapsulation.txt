@@ -1,0 +1,18 @@
+Encapsulation in Python, is the "logical" bundling of related states and behaviours into a single unit, and controlling internal states. 
+
+Encapsulation_core:
+
+    Public (self.name): Accessible from anywhere (inside the class, subclasses, and external code).
+
+    Protected (self._name): Single leading underscore. This is a soft convention telling other developers: "This is internal state; do not touch it unless you are subclassing or extending this class." Python still lets you access it freely.
+
+    Private (self.__name): Double leading underscore (with no trailing underscores). This triggers Python's Name Mangling mechanism.
+
+
+The Mechanics of Name Mangling: How and Why
+When the Python compiler encounters an attribute or method name inside a class definition that starts with two or more underscores and does not end with two or more underscores (e.g., __balance), it automatically rewrites that name behind the scenes.
+
+The Transformation Formula: __variable becomes _ClassName__variable.
+
+Why it exists: It is not designed for security or data hiding (since anyone can inspect __dict__ or use the mangled name). Its sole purpose is to prevent namespace collisions in inheritance hierarchies—ensuring that if a parent class and a child class both define a private variable named __counter, they don't accidentally overwrite each other's data.
+
